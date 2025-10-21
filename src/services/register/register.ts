@@ -14,7 +14,7 @@ export class RegisterService {
 
   // Como é uma função assíncrona e retorna um user, ela foi tipada com o DTO que
   // define um usuário no DTO(response)
-  async register({ name, email, password }: RegisterServiceRequestDTO): Promise<RegisterServiceResponseDTO> {
+  async execute({ name, email, password }: RegisterServiceRequestDTO): Promise<RegisterServiceResponseDTO> {
     // Aqui. passo a string da senha e faço 6 salts, onde ele criptografa senha
     // a depender da quantidade de salts. O ideal para web é 6 saults
     const password_hash = await hash(password, 6);

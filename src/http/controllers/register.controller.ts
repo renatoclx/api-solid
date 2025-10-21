@@ -22,7 +22,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
     // Chama o serviço registerService para realizar o registro, passando
     // por parâmetro o objeto parseado
-    await registerService.register({ name, email, password });
+    await registerService.execute({ name, email, password });
   } catch (error) {
     // Como o error é tratado com throws no service, ele é uma instância de UserAlreadyExists
     // Verificamos por convenção se o error é uma instância de fato com instanceof

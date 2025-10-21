@@ -17,7 +17,7 @@ describe('Register Use Case', () => {
   });
 
   it('Senha deve ser criptografada após o cadastro', async () => {
-    const { user } = await registerService.register({
+    const { user } = await registerService.execute({
       name: 'Fulano',
       email: 'fulano@teste.com',
       password: '123456',
@@ -30,7 +30,7 @@ describe('Register Use Case', () => {
   it('Não posso ter usuário com e-mail repetido', async () => {
     const email = 'fulano@teste.com';
 
-    await registerService.register({
+    await registerService.execute({
       name: 'Fulano',
       email,
       password: '123456',
@@ -38,7 +38,7 @@ describe('Register Use Case', () => {
 
     // Sempre que uso o expect com uma promise, preciso usar o await
     await expect(
-      registerService.register({
+      registerService.execute({
         name: 'Fulano',
         email,
         password: '123456',
@@ -47,7 +47,7 @@ describe('Register Use Case', () => {
   });
 
   it('Criar um usuario', async () => {
-    const { user } = await registerService.register({
+    const { user } = await registerService.execute({
       name: 'Fulano',
       email: 'fulano@teste.com',
       password: '123456',

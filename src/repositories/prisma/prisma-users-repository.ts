@@ -23,4 +23,15 @@ export class PrismaUsersRepository implements UsersRepository {
 
     return sameEmail;
   }
+
+  async findById(userId: string) {
+    // Verificando se o usuário a cadastrar já possui e-mail na base
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    return user;
+  }
 }
