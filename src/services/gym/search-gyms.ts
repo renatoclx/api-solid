@@ -5,8 +5,8 @@ import { SearchGymsResponseDTO } from './dto/SearchGymsResponseDTO';
 export class SearchGymsService {
   constructor(private gymsRepository: GymsRepository) {}
 
-  async execute({ query, page }: SearchGymsRequestDTO): Promise<SearchGymsResponseDTO> {
-    const gyms = await this.gymsRepository.searchMany(query, page);
+  async execute({ q, page }: SearchGymsRequestDTO): Promise<SearchGymsResponseDTO> {
+    const gyms = await this.gymsRepository.searchMany(q, page);
 
     return gyms;
   }

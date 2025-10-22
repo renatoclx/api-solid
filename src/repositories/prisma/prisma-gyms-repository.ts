@@ -15,11 +15,7 @@ export class PrismaGymRepository implements GymsRepository {
   }
 
   async create(data: Prisma.GymCreateInput) {
-    const gym = await prisma.gym.create({
-      where: {
-        data,
-      },
-    });
+    const gym = await prisma.gym.create({ data });
 
     return gym;
   }
@@ -29,6 +25,7 @@ export class PrismaGymRepository implements GymsRepository {
       where: {
         title: {
           contains: query,
+          mode: 'insensitive',
         },
       },
       take: 20,

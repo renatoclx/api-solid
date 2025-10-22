@@ -22,8 +22,8 @@ export class PrismaCheckInRepository implements CheckInsRepository {
     return checkIn;
   }
 
-  save(checkIn: CheckIn) {
-    const checkIn = prisma.checkIn.update(
+  async save(checkIn: CheckIn) {
+    const updateCheckIn = await prisma.checkIn.update(
       {
         id: checkIn.id,
       },
@@ -32,10 +32,10 @@ export class PrismaCheckInRepository implements CheckInsRepository {
       },
     );
 
-    return checkIn;
+    return updateCheckIn;
   }
 
-  countByUserId(userId: string) {
+  async countByUserId(userId: string) {
     const count = await prisma.checkIn.count({
       where: {
         user_id: userId,
@@ -45,7 +45,7 @@ export class PrismaCheckInRepository implements CheckInsRepository {
     return count;
   }
 
-  findManyByUserId(userId: string, page: number) {
+  async findManyByUserId(userId: string, page: number) {
     const checkIns = await prisma.checkIn.findMany({
       where: {
         user_id: userId,
@@ -57,7 +57,7 @@ export class PrismaCheckInRepository implements CheckInsRepository {
     return checkIns;
   }
 
-  findByUserIdOnDate(userId: string, date: Date) {
+  async findByUserIdOnDate(userId: string, date: Date) {
     const startOfTheDay = dayjs(date).startOf('date');
     const endOfTheDay = dayjs(date).endOf('date');
 

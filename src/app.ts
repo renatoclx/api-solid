@@ -1,5 +1,7 @@
 import fastify from 'fastify';
-import { appRoutes } from './http/routes';
+import { userRoutes } from './http/controllers/users/routes';
+import { gymRoutes } from './http/controllers/gyms/routes';
+import { checkInRoutes } from './http/controllers/checkins/routes';
 import { ZodError } from 'zod';
 import { env } from './env';
 import fastifyJwt from '@fastify/jwt';
@@ -12,7 +14,9 @@ app.register(fastifyJwt, {
 });
 
 // Registro do plugin criado para registrar as rotas da aplicação
-app.register(appRoutes);
+app.register(userRoutes);
+app.register(gymRoutes);
+app.register(checkInRoutes);
 
 // 'Plugin' para tratamento de erro global (Zod)
 app.setErrorHandler((error, request, reply) => {

@@ -2,7 +2,7 @@ import { PrismaCheckInRepository } from 'src/repositories/prisma/prisma-checkin-
 import { PrismaGymRepository } from 'src/repositories/prisma/prisma-gyms-repository';
 import { CheckInService } from '../checkin/checkin';
 
-export function makeCheckInService() {
+export function makeCreateCheckInService() {
   const prismaCheckInRepository = new PrismaCheckInRepository();
   const prismaGymRepository = new PrismaGymRepository();
   const checkInService = new CheckInService(prismaCheckInRepository, prismaGymRepository);

@@ -12,7 +12,7 @@ export class CreateGymService {
     latitude,
     longitude,
   }: GymServiceRequestDTO): Promise<GymServiceResponseDTO> {
-    const gym = this.gymsRepository.create({ title, description, phone, latitude, longitude });
+    const gym = await this.gymsRepository.create({ title, description, phone, latitude, longitude });
 
     return gym;
   }
