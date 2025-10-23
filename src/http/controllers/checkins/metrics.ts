@@ -3,11 +3,9 @@ import { makeGetUserMetricsService } from 'src/services/factories/make-get-metri
 
 export async function metrics(request: FastifyRequest, reply: FastifyReply) {
   const userMetricsService = makeGetUserMetricsService();
-  const userCount = await userMetricsService.execute({
+  const checkInsCount = await userMetricsService.execute({
     userId: request.user.sub,
   });
 
-  return reply.statusCode(200).send({
-    userCount,
-  });
+  return reply.status(200).send(checkInsCount);
 }

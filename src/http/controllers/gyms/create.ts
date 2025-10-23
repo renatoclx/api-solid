@@ -10,11 +10,11 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     latitude: z.coerce.number().refine((value) => Math.abs(value) <= 90),
     longitude: z.coerce.number().refine((value) => Math.abs(value) <= 180),
   });
-  console.log(request.body);
+
   const { title, description, phone, latitude, longitude } = createGymSchema.parse(request.body);
 
   const gymService = makeCreateGymService(); // Pega o factory
-  await gymService.execute({ title, description, phone, latitude, longitude });
+  const gym = await gymService.execute({ title, description, phone, latitude, longitude });
 
-  return reply.status(201).send();
+  return reply.status(201).send({ gym });
 }

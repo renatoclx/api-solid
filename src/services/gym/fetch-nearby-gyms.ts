@@ -1,6 +1,6 @@
 import type { GymsRepository } from 'src/repositories/gyms-repository';
-import { FetchNearbyGymsRequestDTO } from './dto/FetchNearbyGymsRequestDTO';
-import { FetchNearbyGymsResponseDTO } from './dto/FetchNearbyGymsResponseDTO';
+import type { FetchNearbyGymsRequestDTO } from './dto/FetchNearbyGymsRequestDTO';
+import type { FetchNearbyGymsResponseDTO } from './dto/FetchNearbyGymsResponseDTO';
 
 export class FetchNearbyGymsService {
   constructor(private gymsRepository: GymsRepository) {}

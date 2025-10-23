@@ -7,22 +7,22 @@ export async function validate(request: FastifyRequest, reply: FastifyReply) {
     checkInId: z.string(),
   });
 
-  const { checkInId } = validateParamsSchema.parse(request.params);
+  const checkIn = validateParamsSchema.parse(request.params);
   const validateCheckInService = makeValidateCheckInService();
 
   try {
-    await validateCheckInService.execute({ checkInId });
-
-    return reply.statusCode(204).send();
+    await validateCheckInService.execute(checkIn);
+    return reply.status(204).send();
   } catch (error) {
-    if (error.instanceof.ResourceNotFoundError) {
+    if (error instanceof ResourceNotFoundError) {
       return reply.status(400).send({ message: error.message });
     }
 
-    if (error.instanceof.CheckInValidateHourError) {
+    if (error instanceof CheckInValidateHourError) {
       return reply.status(400).send({ message: error.message });
     }
 
-    throw error;
+    console.error(error);
+    return reply.status(500).send({ message: 'Internal server error' });
   }
 }

@@ -20,24 +20,12 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
   const { latitude, longitude } = createCheckInSchema.parse(request.body);
   const createCheckInService = makeCreateCheckInService();
 
-  try {
-    await createCheckInService.execute({
-      userId: request.user.sub, // id do usuário logado
-      gymId,
-      userLatitude: latitude,
-      userLongitude: longitude,
-    });
-  } catch (error) {
-    if (error.instanceof.CheckInOnSameDateError) {
-      return reply.status(400).send({ message: error.message });
-    }
+  const checkIn = await createCheckInService.execute({
+    userId: request.user.sub, // id do usuário logado
+    gymId,
+    userLatitude: latitude,
+    userLongitude: longitude,
+  });
 
-    if (error.instanceof.MaxDistanceError) {
-      return reply.status(400).send({ message: error.message });
-    }
-
-    throw error;
-  }
-
-  return reply.status(201).send();
+  return reply.status(201).send({ checkIn });
 }

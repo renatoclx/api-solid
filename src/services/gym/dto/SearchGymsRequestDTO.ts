@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-interface SearchGymsRequestDTO {
+export interface SearchGymsRequestDTO {
   query: string;
   page: number;
 }
