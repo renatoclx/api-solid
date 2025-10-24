@@ -1,16 +1,28 @@
 import fastify from 'fastify';
+import fastifyJwt from '@fastify/jwt';
+import fastifyCookie from '@fastify/cookie';
 import { userRoutes } from './http/controllers/users/routes';
 import { gymRoutes } from './http/controllers/gyms/routes';
 import { checkInRoutes } from './http/controllers/checkins/routes';
 import { ZodError } from 'zod';
 import { env } from './env';
-import fastifyJwt from '@fastify/jwt';
 
 export const app = fastify();
+
+// Registro de plugin de cookies
+app.register(fastifyCookie);
 
 // Registro de plugin do JWT (JSON WEB TOKEN)
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET, // palavra-chave que será encriptada (no .env)
+  cookie: {
+    cookieName: 'refreshToken', // nome do token dentro do cookie
+    signed: false, // Verifica que o token no cookie não está assinado
+  },
+  sign: {
+    //Configuração de expiração do token
+    expiresIn: '10m', //token expira a cada 10 minutos
+  },
 });
 
 // Registro do plugin criado para registrar as rotas da aplicação
